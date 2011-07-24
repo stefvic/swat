@@ -1,0 +1,208 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.swat</groupId>
+	<artifactId>mercedes</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<developers>
+		<developer>
+			<id>stefvic</id>
+			<name>Victor Stefoglo</name>
+			<email>stef_victor@yahoo.com</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<!-- TODO complete list -->
+	</developers>
+
+	<properties>
+		<!-- maven-compiler-plugin properties -->
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+
+		<!-- encoding build -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- versions -->
+		<org.springframework.version>3.1.0.M2</org.springframework.version>
+		<org.slf4j.version>1.6.1</org.slf4j.version>
+		<ch.qos.logback.version>0.9.29</ch.qos.logback.version>
+		<org.codehaus.jackson.version>1.8.3</org.codehaus.jackson.version>
+		<javax.servlet.api.version>2.5</javax.servlet.api.version>
+		<javax.servlet.jsp.version>2.1</javax.servlet.jsp.version>
+		<javax.servlet.jstl.version>1.2</javax.servlet.jstl.version>
+		<org.hibernate.version>3.6.6.Final</org.hibernate.version>
+		<org.hibernate.annotation.version>3.5.6-Final</org.hibernate.annotation.version>
+		<javassist.version>3.12.0.GA</javassist.version>
+		<commons-dbcp.version>1.4</commons-dbcp.version>
+	</properties>
+
+	<dependencies>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework.version}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${org.hibernate.version}</version>
+		</dependency>
+		
+		<!-- Use JPA annotations  -->
+		<!--  
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>${org.hibernate.annotation.version}</version>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>${javassist.version}</version>
+		</dependency>
+		
+		<!-- JDBC Pooling -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>${commons-dbcp.version}</version>
+		</dependency>
+
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${ch.qos.logback.version}</version>
+		</dependency>
+
+		<!-- Jackson JSON Mapper -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${org.codehaus.jackson.version}</version>
+		</dependency>
+
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${javax.servlet.api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${javax.servlet.jsp.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${javax.servlet.jstl.version}</version>
+		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>swat</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<configuration>
+					<!-- http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<connectors>
+						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+							<port>8080</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<!-- JBoss Releases repository -->
+		<repository>
+			<id>org.jboss.repository.release</id>
+			<name>JBoss Maven Release Repository</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
+		<!-- Spring Releases repository -->
+		<repository>
+			<id>com.springsource.repository.maven.release</id>
+			<url>http://maven.springframework.org/release/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
+		<!-- Spring Milestones repository -->
+		<repository>
+			<id>com.springsource.repository.maven.milestone</id>
+			<url>http://maven.springframework.org/milestone/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+</project>

@@ -1,0 +1,7 @@
+# Git ingnore files definitions
+/.classpath
+/.project
+/.settings
+/.git
+/target
+
