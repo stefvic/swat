@@ -12,6 +12,7 @@ For developer purpose:
 				1) Use Help/Eclipse Marketplace (search : m2eclipse, install)
 				   or
 				2) Use Help/Install New Software, Add : http://download.eclipse.org/technology/m2e/releases
+				   (preferd)
 									  
 			-- Egit plugin :
 				1) Use Help/Eclipse Marketplace (search : egit, install)
@@ -19,4 +20,7 @@ For developer purpose:
 				2) Use Help/Install New Software, Add : http://download.eclipse.org/egit/updates
 		4) ...
 
+	Import project:
+		1) Clone project from github
+		2) Import maven project using m2eclispe plugin
 TODO
