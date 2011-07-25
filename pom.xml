@@ -38,6 +38,7 @@
 		<org.hibernate.annotation.version>3.5.6-Final</org.hibernate.annotation.version>
 		<javassist.version>3.12.0.GA</javassist.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
+		<mysql.version>5.1.17</mysql.version>
 	</properties>
 
 	<dependencies>
@@ -54,13 +55,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
@@ -72,28 +73,23 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
-		
+
 		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${org.hibernate.version}</version>
 		</dependency>
-		
-		<!-- Use JPA annotations  -->
-		<!--  
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>${org.hibernate.annotation.version}</version>
-		</dependency>
-		-->
+
+		<!-- Use JPA annotations -->
+		<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-annotations</artifactId> 
+			<version>${org.hibernate.annotation.version}</version> </dependency> -->
 		<dependency>
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<version>${javassist.version}</version>
 		</dependency>
-		
+
 		<!-- JDBC Pooling -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -111,6 +107,11 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
+			<version>${ch.qos.logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
 			<version>${ch.qos.logback.version}</version>
 		</dependency>
 
@@ -158,20 +159,6 @@
 	<build>
 		<finalName>swat</finalName>
 		<plugins>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-				<configuration>
-					<!-- http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<connectors>
-						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>8080</port>
-							<maxIdleTime>60000</maxIdleTime>
-						</connector>
-					</connectors>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
@@ -205,4 +192,62 @@
 		</repository>
 	</repositories>
 
+	<!-- profiles -->
+
+	<profiles>
+		<!-- Dev profile. (active by default) -->
+		<profile>
+			<id>dev</id>
+
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
+			<dependencies>
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+					<version>1.3.158</version>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>maven-jetty-plugin</artifactId>
+						<configuration>
+							<!-- http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
+							<scanIntervalSeconds>10</scanIntervalSeconds>
+							<connectors>
+								<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+									<port>8080</port>
+									<maxIdleTime>60000</maxIdleTime>
+								</connector>
+							</connectors>
+							<systemProperties>
+								<systemProperty>
+									<name>mod</name>
+									<value>-dev</value>
+								</systemProperty>
+							</systemProperties>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<!-- Production profile -->
+		<profile>
+			<id>prod</id>
+
+			<dependencies>
+				<dependency>
+					<groupId>mysql</groupId>
+					<artifactId>mysql-connector-java</artifactId>
+					<version>${mysql.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 </project>
