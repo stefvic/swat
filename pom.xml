@@ -159,6 +159,31 @@
 	<build>
 		<finalName>swat</finalName>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>hibernate3-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<components>
+						<component>
+							<name>hbm2ddl</name>
+							<implementation>annotationconfiguration</implementation>
+						</component>
+					</components>
+					<componentProperties>
+						<!-- Create Drop Statements -->
+						<drop>false</drop>
+						<!-- Enable Annotations -->
+						<jdk5>true</jdk5>
+						<!-- Pretty Format SQL Code -->
+						<format>true</format>
+						<!-- Create tables automatically? -->
+						<export>false</export>
+						<!-- Output filename -->
+						<outputfilename>${basedir}/src/main/resources/schema.sql</outputfilename>
+					</componentProperties>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -220,6 +245,7 @@
 						<configuration>
 							<!-- http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
 							<scanIntervalSeconds>10</scanIntervalSeconds>
+							<contextPath>${project.build.finalName}</contextPath>
 							<connectors>
 								<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
 									<port>8080</port>
@@ -259,6 +285,7 @@
 						<configuration>
 							<!-- http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
 							<scanIntervalSeconds>10</scanIntervalSeconds>
+							<contextPath>${project.build.finalName}</contextPath>
 							<connectors>
 								<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
 									<port>8080</port>
@@ -272,6 +299,6 @@
 				</plugins>
 			</build>
 		</profile>
-		
+
 	</profiles>
 </project>
