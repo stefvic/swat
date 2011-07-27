@@ -26,4 +26,8 @@ public class ContextConfig {
     public SampleController sampleController(){
 	return new SampleController();
     }
+    
+    public void test(){
+	
+    }
 }
