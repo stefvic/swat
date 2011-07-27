@@ -15,6 +15,14 @@
 				<role>Developer</role>
 			</roles>
 		</developer>
+		<developer>
+			<id>wind57</id>
+			<name>rabii eugen</name>
+			<email>eugen.rabii@gmail.com</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
 		<!-- TODO complete list -->
 	</developers>
 
@@ -39,9 +47,16 @@
 		<javassist.version>3.12.0.GA</javassist.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<mysql.version>5.1.17</mysql.version>
+		<cglib.version>2.2.2</cglib.version>
 	</properties>
 
 	<dependencies>
+		<!-- CGLIB for annotation-based MVC -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>${cglib.version}</version>
+		</dependency> 
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -155,6 +170,9 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	
+	
 
 	<build>
 		<finalName>swat</finalName>
