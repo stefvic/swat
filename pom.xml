@@ -319,4 +319,7 @@
 		</profile>
 
 	</profiles>
+	<name>SWAT</name>
+	<url>https://github.com/stefvic/swat</url>
+	<description>das projekt</description>
 </project>
