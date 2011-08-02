@@ -6,6 +6,9 @@
 	<session-factory>
 		<property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
 		<mapping package="com.swat.mercede.be.entities" />
-		<mapping class="com.swat.mercede.be.entities.TestEntity" />
+		<mapping class="com.swat.mercede.be.entities.Item" />
+		<mapping class="com.swat.mercede.be.entities.Order" />
+		<mapping class="com.swat.mercede.be.entities.Client" />
+		<mapping class="com.swat.mercede.be.entities.Car" />
 	</session-factory>
 </hibernate-configuration>
