@@ -102,14 +102,14 @@
 		<!-- Use JPA annotations -->
 		<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-annotations</artifactId> 
 			<version>${org.hibernate.annotation.version}</version> </dependency> -->
-		
+
 		<!-- JPA Hibernate provider -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${org.hibernate.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
@@ -183,10 +183,16 @@
 	</dependencies>
 
 
-
-
 	<build>
 		<finalName>swat</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		
 		<plugins>
 			<!-- Hibernate maven plugin. @link{http://mojo.codehaus.org/maven-hibernate3/hibernate3-maven-plugin/} -->
 			<!-- Usage: mvn hibernate3:hbm2ddl -->
@@ -215,6 +221,23 @@
 					</componentProperties>
 				</configuration>
 			</plugin>
+			<!-- -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<!-- http://maven.apache.org/plugins/maven-war-plugin/ -->
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp</directory>
+							<filtering>true</filtering>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
@@ -268,6 +291,9 @@
 			</dependencies>
 
 			<build>
+				<filters>
+					<filter>${basedir}/src/main/filters/dev-env.properties</filter>
+				</filters>
 				<plugins>
 					<plugin>
 						<groupId>org.mortbay.jetty</groupId>
@@ -308,6 +334,9 @@
 			</dependencies>
 
 			<build>
+				<filters>
+					<filter>src/main/filters/prod-env.properties</filter>
+				</filters>
 				<plugins>
 					<plugin>
 						<groupId>org.mortbay.jetty</groupId>

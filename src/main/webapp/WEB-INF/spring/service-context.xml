@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
@@ -9,21 +10,29 @@
 	<!-- Import datasource -->
 	<import resource="datasource${mod:}.xml" />
 
-	<!-- SessionFactory bean definitions -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="com.swat.mercedes.be.entities" />
-		<property name="hibernateProperties" value="hibernate${mod:}.properties" />
+	<!-- JPA EntityManagerFactory -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+			p:dataSource-ref="dataSource">
+		<property name="jpaVendorAdapter">
+			<!-- 
+			<bean class="org.springframework.orm.jpa.vendor.TopLinkJpaVendorAdapter"
+					p:databasePlatform="${jpa.databasePlatform}" p:showSql="${jpa.showSql}"/>
+			 -->
+			<!--
+			<bean class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter"
+					p:database="${jpa.database}" p:showSql="${jpa.showSql}"/>
+			-->
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+					p:databasePlatform="${jpa.databasePlatform}" p:showSql="${jpa.showSql}"/>
+		</property>
+		<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"/>
 	</bean>
-
-	<!-- Hibernate Transaction Manager -->
-	<bean id="txManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	
+	<!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+			p:entityManagerFactory-ref="entityManagerFactory"/>
 
 	<!-- Enable the configuration of transactional behavior based on annotations -->
-	<tx:annotation-driven transaction-manager="txManager" />
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 </beans>
