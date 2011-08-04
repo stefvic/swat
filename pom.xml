@@ -301,6 +301,8 @@
 						<version>6.1.26</version>
 						<configuration>
 							<!-- http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
+							<stopPort>5000</stopPort>
+							<stopKey>swat</stopKey>
 							<scanIntervalSeconds>10</scanIntervalSeconds>
 							<contextPath>${project.build.finalName}</contextPath>
 							<connectors>
@@ -338,6 +340,10 @@
 					<filter>src/main/filters/prod-env.properties</filter>
 				</filters>
 				<plugins>
+					<!-- Normally, testing a web application involves compiling Java sources, creating a WAR and deploying it to a web container.
+         				 Using the Jetty Plugin enables you to quickly test your web application by skipping the last two steps. 
+         				 By default the Jetty Plugin scans target/classes for any changes in your Java sources and src/main/webapp for changes to your web sources. 
+         				 The Jetty Plugin will automatically reload the modified classes and web sources. -->
 					<plugin>
 						<groupId>org.mortbay.jetty</groupId>
 						<artifactId>maven-jetty-plugin</artifactId>
