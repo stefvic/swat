@@ -18,7 +18,18 @@ For developer purpose:
 				1) Use Help/Eclipse Marketplace (search : egit, install)
 					or
 				2) Use Help/Install New Software, Add : http://download.eclipse.org/egit/updates
-		4) ...
+		
+		4) Configuration JPA model generation :
+			- use this link 
+				http://docs.jboss.org/hibernate/stable/jpamodelgen/reference/en-US/html/chapter-usage.html#maven-dependency
+				(2.2.2 for eclispe IDE)
+				custom rules: 
+					generated source directory: target/generated-sources/apt (maven like)
+					add in jars in factory path: 
+						hibernate-jpamodelgen-1.1.1.Final.jar
+						hibernate-jpa-2.0-api-1.0.1.Final.jar
+						
+		5) ...
 
 	Import project:
 		1) Clone project from github

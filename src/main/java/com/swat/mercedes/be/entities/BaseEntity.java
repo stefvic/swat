@@ -1,6 +1,5 @@
-package com.swat.mercede.be.entities;
+package com.swat.mercedes.be.entities;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,6 +10,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.core.style.ToStringCreator;
+
 /**
  * Base entity class
  * 
@@ -18,7 +19,7 @@ import javax.persistence.TemporalType;
  * 
  */
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable {
+public abstract class BaseEntity implements IEntity<Long> {
 
     private static final long serialVersionUID = -2430838712355310686L;
 
@@ -49,7 +50,7 @@ public abstract class BaseEntity implements Serializable {
     /**
      * @return the id
      */
-    protected Long getId() {
+    public Long getId() {
 	return id;
     }
 
@@ -57,7 +58,7 @@ public abstract class BaseEntity implements Serializable {
      * @param id
      *            the id to set
      */
-    void setId(Long id) {
+    public void setId(Long id) {
 	this.id = id;
     }
 
@@ -74,6 +75,47 @@ public abstract class BaseEntity implements Serializable {
      */
     void setCreatedDate(Date createdDate) {
 	this.createdDate = createdDate;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+	ToStringCreator stringCreator = new ToStringCreator(this);
+	stringCreator.append("id", id);
+	stringCreator.append("createdDate", createdDate);
+	return stringCreator.toString();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+	int hashCode = 0;
+	if (id != null) {
+	    hashCode += id;
+	}
+	return hashCode;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+	boolean equals = false;
+	if (obj != null && obj instanceof BaseEntity) {
+	    equals = id.equals(((BaseEntity) obj).id);
+	}
+	return equals;
     }
 
 }

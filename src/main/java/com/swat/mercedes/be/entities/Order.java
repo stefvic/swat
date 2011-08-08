@@ -1,4 +1,4 @@
-package com.swat.mercede.be.entities;
+package com.swat.mercedes.be.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,6 +6,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.ForeignKey;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * Order entity class
@@ -137,4 +138,21 @@ public class Order extends BaseEntity {
 	this.car = car;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.swat.mercedes.be.entities.BaseEntity#toString()
+     */
+    @Override
+    public String toString() {
+	ToStringCreator stringCreator = new ToStringCreator(this);
+	stringCreator.append(super.toString());
+	stringCreator.append("description", description);
+	stringCreator.append("cost", cost);
+	stringCreator.append("extraCost", extraCost);
+	stringCreator.append("completed", completed);
+	stringCreator.append("item", item);
+	stringCreator.append("car", car);
+	return stringCreator.toString();
+    }
 }

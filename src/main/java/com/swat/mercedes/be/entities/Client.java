@@ -1,4 +1,4 @@
-package com.swat.mercede.be.entities;
+package com.swat.mercedes.be.entities;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.ForeignKey;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * Client entity class
@@ -105,4 +106,19 @@ public class Client extends BaseEntity {
 	this.cars = cars;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.swat.mercedes.be.entities.BaseEntity#toString()
+     */
+    @Override
+    public String toString() {
+	ToStringCreator stringCreator = new ToStringCreator(this);
+	stringCreator.append(super.toString());
+	stringCreator.append("firstName", firstName);
+	stringCreator.append("lastName", lastName);
+	stringCreator.append("phone", phone);
+	stringCreator.append("cars", cars);
+	return stringCreator.toString();
+    }
 }

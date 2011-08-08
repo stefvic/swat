@@ -1,4 +1,4 @@
-package com.swat.mercede.be.entities;
+package com.swat.mercedes.be.entities;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ForeignKey;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * Car entity class
@@ -17,7 +18,7 @@ import org.hibernate.annotations.ForeignKey;
  * @author Victor Stefoglo
  * 
  */
-@Entity(name="T_CAR")
+@Entity(name = "T_CAR")
 public class Car extends BaseEntity {
 
     private static final long serialVersionUID = -3538580041167148461L;
@@ -120,4 +121,20 @@ public class Car extends BaseEntity {
 	this.clients = clients;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.swat.mercedes.be.entities.BaseEntity#toString()
+     */
+    @Override
+    public String toString() {
+	ToStringCreator stringCreator = new ToStringCreator(this);
+	stringCreator.append(super.toString());
+	stringCreator.append("identity", identity);
+	stringCreator.append("winCode", winCode);
+	stringCreator.append("km", km);
+	stringCreator.append("orders", orders);
+	stringCreator.append("clients", clients);
+	return stringCreator.toString();
+    }
 }

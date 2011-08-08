@@ -1,4 +1,4 @@
-package com.swat.mercede.be.entities;
+package com.swat.mercedes.be.entities;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * Item entity class
@@ -132,6 +134,24 @@ public class Item extends BaseEntity {
      */
     public void setOrders(Set<Order> orders) {
 	this.orders = orders;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.swat.mercedes.be.entities.BaseEntity#toString()
+     */
+    @Override
+    public String toString() {
+	ToStringCreator stringCreator = new ToStringCreator(this);
+	stringCreator.append(super.toString());
+	stringCreator.append("code", code);
+	stringCreator.append("name", name);
+	stringCreator.append("price", price);
+	stringCreator.append("sprice", sprice);
+	stringCreator.append("quantity", quantity);
+	stringCreator.append("orders", orders);
+	return stringCreator.toString();
     }
 
 }
