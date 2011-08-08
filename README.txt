@@ -34,4 +34,12 @@ For developer purpose:
 	Import project:
 		1) Clone project from github
 		2) Import maven project using m2eclispe plugin
+		
+		
+		
+PERSIST is create new records from object in the database.
+DELETE  is, well, delete.
+MERGE, for existing objects, to merge the existing data in the table with the data in my object. (sync to database)
+REFRESH is to refresh the data in the object. Perhaps there was a change on the database which needs to be synced. (sync from database)
+			
 TODO

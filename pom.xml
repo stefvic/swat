@@ -51,9 +51,16 @@
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<mysql.version>5.1.17</mysql.version>
 		<cglib.version>2.2.2</cglib.version>
+		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
 	</properties>
 
 	<dependencies>
+		<!-- Hibernate Validator -->
+		<dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-validator</artifactId>
+    		<version>${hibernate.validator.version}</version>
+		</dependency>
 		<!-- CGLIB for annotation-based MVC -->
 		<dependency>
 			<groupId>cglib</groupId>

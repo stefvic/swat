@@ -26,8 +26,8 @@ public class Car extends BaseEntity {
     @Column(name = "IDENTITY", nullable = false, length = 255)
     private String identity;
 
-    @Column(name = "WIN_CODE", nullable = false, length = 255)
-    private String winCode;
+    @Column(name = "VIN_CODE", nullable = false, length = 255)
+    private String vinCode;
 
     @Column(name = "KM", scale = 18)
     private long km;
@@ -62,18 +62,18 @@ public class Car extends BaseEntity {
     }
 
     /**
-     * @return the winCode
+     * @return the vinCode
      */
-    public String getWinCode() {
-	return winCode;
+    public String getvinCode() {
+	return vinCode;
     }
 
     /**
-     * @param winCode
-     *            the winCode to set
+     * @param vinCode
+     *            the vinCode to set
      */
-    public void setWinCode(String winCode) {
-	this.winCode = winCode;
+    public void setvinCode(String vinCode) {
+	this.vinCode = vinCode;
     }
 
     /**
@@ -131,7 +131,7 @@ public class Car extends BaseEntity {
 	ToStringCreator stringCreator = new ToStringCreator(this);
 	stringCreator.append(super.toString());
 	stringCreator.append("identity", identity);
-	stringCreator.append("winCode", winCode);
+	stringCreator.append("vinCode", vinCode);
 	stringCreator.append("km", km);
 	stringCreator.append("orders", orders);
 	stringCreator.append("clients", clients);
