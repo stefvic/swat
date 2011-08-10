@@ -46,9 +46,9 @@
     	<beans:property name="dataSource" ref="dataSource"/>
     	<beans:property name="jpaVendorAdapter">
       		<beans:bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        		<beans:property name="showSql" value="true"/>
-        		<beans:property name="generateDdl" value="true"/>
-        		<beans:property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
+        		<beans:property name="showSql" value="${jpa.showSql}"/>
+        		<beans:property name="generateDdl" value="${jpa.generateDdl}"/>
+        		<beans:property name="databasePlatform" value="${jpa.databasePlatform}"/>
       		</beans:bean>
     	</beans:property>
   	</beans:bean>
