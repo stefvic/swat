@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.ForeignKey;
 import org.springframework.core.style.ToStringCreator;
@@ -19,7 +21,9 @@ import org.springframework.core.style.ToStringCreator;
  * @author Victor Stefoglo
  * 
  */
-@Entity(name="T_CLIENT")
+@Entity
+@Table(name = "T_CLIENT", uniqueConstraints = @UniqueConstraint(name = "CLIENT_UNIQUE", columnNames = { "FIRST_NAME",
+	"LAST_NAME" }))
 public class Client extends BaseEntity {
 
     private static final long serialVersionUID = 1932022457641182327L;

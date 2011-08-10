@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
@@ -29,6 +30,7 @@ import com.swat.mercedes.be.entities.IEntity;
  * 
  * @author Victor Stefoglo
  * 
+ * @deprecated Use {@link GenericRepository} spring implementation instead of this
  */
 public abstract class GenericDao<T extends IEntity<I>, I extends Serializable> implements IDao<T, I> {
 
@@ -116,12 +118,23 @@ public abstract class GenericDao<T extends IEntity<I>, I extends Serializable> i
     @SuppressWarnings("unchecked")
     @Override
     public List<T> get(I... ids) {
-	CriteriaQuery<T> criteriaQuery = createRootEntityQuery();
-	Root<T> entityRoot = (Root<T>) criteriaQuery.from(entityClass);
-	Path<I> idPath = (Path<I>) entityRoot.get(entityRoot.getModel().getSingularAttribute(IEntity.ID));
-	criteriaQuery.where(entityManager.getCriteriaBuilder().in(idPath).in((Object[]) ids));
-	List<T> result = entityManager.createQuery(criteriaQuery).getResultList();
-	return result;
+	try {
+	    logger.debug(">> Start get entities by id {}", ids);
+	    CriteriaQuery<T> criteriaQuery = createRootEntityQuery();
+	    Root<T> entityRoot = (Root<T>) criteriaQuery.from(entityClass);
+	    Path<I> idPath = (Path<I>) entityRoot.get(entityRoot.getModel().getSingularAttribute(IEntity.ID));
+	    criteriaQuery.where(entityManager.getCriteriaBuilder().in(idPath).in((Object[]) ids));
+	    List<T> result = entityManager.createQuery(criteriaQuery).getResultList();
+	    return result;
+	} catch (IllegalArgumentException iae) {
+	    logger.error(iae.getMessage());
+	    throw new DaoException(iae.getMessage(), iae.getCause());
+	} catch (PersistenceException pe) {
+	    logger.error(pe.getMessage());
+	    throw new DaoException(pe.getMessage(), pe.getCause());
+	} finally {
+	    logger.debug("<< End save entity.");
+	}
     }
 
     /*
@@ -143,18 +156,23 @@ public abstract class GenericDao<T extends IEntity<I>, I extends Serializable> i
      * com.swat.mercedes.be.dao.IDao#save(com.swat.mercedes.be.entities.IEntity)
      */
     @Override
-    public void save(final T object) {
+    public void save(final T object) throws DaoException {
 	try {
+	    logger.debug(">> Start save entity '{}'", entityClass);
 	    if (object.getId() != null) {
 		entityManager.merge(object);
 	    } else {
 		entityManager.persist(object);
 	    }
-
+	    logger.debug("Entity saved successfully.");
 	} catch (IllegalArgumentException iae) {
-
+	    logger.error(iae.getMessage());
+	    throw new DaoException(iae.getMessage(), iae.getCause());
+	} catch (PersistenceException pe) {
+	    logger.error(pe.getMessage());
+	    throw new DaoException(pe.getMessage(), pe.getCause());
 	} finally {
-
+	    logger.debug("<< End save entity.");
 	}
 
     }
@@ -166,12 +184,17 @@ public abstract class GenericDao<T extends IEntity<I>, I extends Serializable> i
      */
     @Override
     public void save(final T... objects) {
-	for (T object : objects) {
-	    if (object.getId() != null) {
-		entityManager.merge(object);
-	    } else {
-		entityManager.persist(object);
+	try {
+	    logger.debug(">> Start save entities.");
+	    for (T object : objects) {
+		save(object);
 	    }
+	    logger.debug("Entities saved successfully.");
+	} catch (DaoException e) {
+	    logger.error(e.getMessage());
+	    throw e;
+	} finally {
+	    logger.debug("<< End save entities.");
 	}
     }
 

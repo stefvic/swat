@@ -1,12 +1,14 @@
 package com.swat.mercedes.be.dao.test;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.swat.mercedes.be.AbstractSwatTest;
 import com.swat.mercedes.be.dao.ClientDao;
+import com.swat.mercedes.be.dao.exception.DaoException;
 import com.swat.mercedes.be.entities.Client;
 
 /**
@@ -37,6 +39,13 @@ public class ClientDaoTest extends AbstractSwatTest {
     public void loadClient() {
 	clientDao.save(createMockClient());
 	assertEquals(1, clientDao.getAll().size());
+    }
+
+    @Test(expected = DaoException.class)
+    @Transactional
+    public void addTwoSameClient() {
+	clientDao.save(createMockClient());
+	clientDao.save(createMockClient());
     }
 
     static public Client createMockClient() {
