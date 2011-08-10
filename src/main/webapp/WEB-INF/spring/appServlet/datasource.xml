@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Import JDBC properties -->
+	<!-- This jdbc.properties is actually in src/main/java/resources -->
+	<!-- This file creates the dataSource, which in our case is actually a JDBC Pool that comes from apache and it's called DBCP -->
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="defaultAutoCommit" value="${jdbc.defaultAutoCommit}" />
+		<property name="initialSize" value="${dbcp.initialSize}" />
+		<property name="validationQuery" value="${dbcp.validationQuery}" />
+	</bean>
+
+</beans>
