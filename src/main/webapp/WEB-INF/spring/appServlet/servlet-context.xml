@@ -24,5 +24,40 @@
 	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<beans:property name="basename" value="/WEB-INF/ErrorMessages" />
 	</beans:bean>
+	
+	<!-- Generally we would need to define the dataSource first, like this for example: -->
+	<!-- But the dataSource is already defined in the datasource.xml file, so we will just import it -->
+	
+	<!-- 
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <beans:property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <beans:property name="url" value="${jdbc.url}"/>
+        <beans:property name="username" value="${jdbc.username}"/>
+        <beans:property name="password" value="${jdbc.password}"/>
+    </beans:bean>
+    <context:property-placeholder location="classpath:jdbc.properties"/> 
+	 -->
+	 
+	 <beans:import resource="datasource.xml"/>
+	 
+	 <!-- Define the Entity Manager Factory -->
+	 
+	 <beans:bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    	<beans:property name="dataSource" ref="dataSource"/>
+    	<beans:property name="jpaVendorAdapter">
+      		<beans:bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        		<beans:property name="showSql" value="true"/>
+        		<beans:property name="generateDdl" value="true"/>
+        		<beans:property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
+      		</beans:bean>
+    	</beans:property>
+  	</beans:bean>
+  	
+  	<!-- Transaction Manager -->
+  	
+  	<beans:bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+      <beans:property name="entityManagerFactory" ref="entityManagerFactory"/>
+      <beans:property name="dataSource" ref="dataSource"/>
+   </beans:bean>
 		
 </beans:beans>
