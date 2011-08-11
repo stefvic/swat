@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ForeignKey;
@@ -19,6 +20,11 @@ import org.springframework.core.style.ToStringCreator;
  * 
  */
 @Entity(name = "T_CAR")
+// Yet to be defined
+@NamedQuery(
+	name="Car.findByTheCarsName",
+	query="from Car car where..... "
+)
 public class Car extends BaseEntity {
 
     private static final long serialVersionUID = -3538580041167148461L;
