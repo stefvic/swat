@@ -23,7 +23,7 @@ import org.springframework.core.style.ToStringCreator;
 // Yet to be defined
 @NamedQuery(
 	name="Car.findByTheCarsName",
-	query="from Car car where..... "
+	query="from T_CAR car where car.vinCode = ? "
 )
 public class Car extends BaseEntity {
 
