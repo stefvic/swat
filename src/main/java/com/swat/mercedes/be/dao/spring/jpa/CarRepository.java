@@ -25,6 +25,7 @@ import com.swat.mercedes.be.entities.Car;
  * 
  * 
  * 3. We have extended from CarRepositoryCustomInterface, thus the findCarsInServiceForMoreThenOneMonth() method is going to be found.
+ *    Do not look of what it is really doing (it's methods has not business purpose), just explanation purposes
  * 
  * 4. We have defined also a method called findByTheCarsName. Now this method is resolved in the Entity (Model class) eventually (see Car Entity @NamedQuery)
  *    Same thing can be achieved with the @Query annotation (see getAllOrders method)
