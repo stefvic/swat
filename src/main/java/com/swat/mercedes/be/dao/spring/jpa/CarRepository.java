@@ -34,7 +34,7 @@ public interface CarRepository  extends JpaRepository<Car, Long>, CarRepositoryC
     Car findByCarName(Car name);
     Car findByTheCarsName(Car name);
     
-    @Query("select ...... ")
+    @Query("select description from Order")
     List<Car> getAllOrders();
     
 }
