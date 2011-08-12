@@ -29,7 +29,9 @@ For developer purpose:
 						hibernate-jpamodelgen-1.1.1.Final.jar
 						hibernate-jpa-2.0-api-1.0.1.Final.jar
 						
-		5) ...
+		5) Instead of using Criteria API, we use (at least will try to use) Query DSL - which is the same type safe query builders, but made much easier with Query DSL.
+		   More about : http://blog.mysema.com/2010/07/querying-hibernate-with-querydsl.html
+		   				http://blog.springsource.com/2011/04/26/advanced-spring-data-jpa-specifications-and-querydsl/
 
 	Import project:
 		1) Clone project from github
