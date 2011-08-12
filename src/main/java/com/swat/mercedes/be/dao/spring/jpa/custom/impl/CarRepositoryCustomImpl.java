@@ -1,16 +1,26 @@
 package com.swat.mercedes.be.dao.spring.jpa.custom.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.mysema.query.hql.HQLQuery;
+import com.mysema.query.hql.jpa.JPAQuery;
 import com.swat.mercedes.be.dao.spring.jpa.custom.CarRepositoryCustomInterface;
 import com.swat.mercedes.be.entities.Car;
+import com.swat.mercedes.be.entities.QCar;
+
+
+/**
+ * Some more could be used 
+ * 
+ *
+ */
 
 public class CarRepositoryCustomImpl implements CarRepositoryCustomInterface {
 
@@ -28,5 +38,16 @@ public class CarRepositoryCustomImpl implements CarRepositoryCustomInterface {
 	
 	return entityManager.createQuery("from Car car where....", Car.class).getResultList();
     }
+
+    @Override
+    public List<Car> findCarsWithMoreThen100kkm() {
+	
+	HQLQuery query = new JPAQuery(entityManager);
+	QCar car = QCar.car;
+	ArrayList<Car> cars = (ArrayList<Car>)query.from(car).where(car.km.gt(100000)).list(car);
+	return cars;
+    }
+    
+    
 
 }

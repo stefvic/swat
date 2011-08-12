@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 import com.swat.mercedes.be.dao.spring.jpa.custom.CarRepositoryCustomInterface;
 import com.swat.mercedes.be.entities.Car;
@@ -29,6 +30,9 @@ import com.swat.mercedes.be.entities.Car;
  * 
  * 4. We have defined also a method called findByTheCarsName. Now this method is resolved in the Entity (Model class) eventually (see Car Entity @NamedQuery)
  *    Same thing can be achieved with the @Query annotation (see getAllOrders method)
+ *    
+ * 5. QueryDslPredicateExecutor - QueryDSL is the better way to write Criteria API Queries - it is less code at least. 
+ *    When you want to use it we have to add it to the our Repository   
  *   
  */
 public interface CarRepository  extends JpaRepository<Car, Long>, CarRepositoryCustomInterface{

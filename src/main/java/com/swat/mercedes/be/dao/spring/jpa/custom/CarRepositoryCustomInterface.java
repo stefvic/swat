@@ -15,4 +15,5 @@ import com.swat.mercedes.be.entities.Car;
 
 public interface CarRepositoryCustomInterface {
     List<Car> findCarsInServiceForMoreThenOneMonth();
+    List<Car> findCarsWithMoreThen100kkm();
 }
