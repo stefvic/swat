@@ -195,6 +195,21 @@
             <artifactId>spring-data-jpa</artifactId>
             <version>1.0.0.RC1</version>
         </dependency>
+        
+        <!-- Query DSL Dependencies -->
+        <dependency>  
+  			<groupId>com.mysema.querydsl</groupId>  
+ 			<artifactId>querydsl-apt</artifactId>  
+  			<version>1.8.2</version>  
+  			<scope>provided</scope>  
+		</dependency>    
+      
+		<dependency>  
+  			<groupId>com.mysema.querydsl</groupId>  
+  			<artifactId>querydsl-hql</artifactId>  
+  			<version>1.8.2</version>  
+		</dependency>  
+         
 		
 	</dependencies>
 
@@ -276,6 +291,29 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			
+			<!-- Query DSL - Criteria API made easier -->
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+					<artifactId>maven-apt-plugin</artifactId>
+					<version>1.0</version>
+					<executions>
+    					<execution>
+      						<phase>generate-sources</phase>
+      						<goals>
+        						<goal>process</goal>
+      						</goals>
+      						<configuration>
+        						<outputDirectory>target/generated-sources/apt</outputDirectory>
+        						<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+      							<action>
+                					<ignore />
+              					</action>
+    						</configuration>
+    					</execution>
+  					</executions>
+				</plugin>
+			
 		</plugins>
 		
 		<pluginManagement>
@@ -296,6 +334,23 @@
 										</artifactId>
 										<versionRange>
 											[2.0.3,)
+										</versionRange>
+										<goals>
+											<goal>process</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.mysema.maven</groupId>
+										<artifactId>
+											maven-apt-plugin
+										</artifactId>
+										<versionRange>
+											[1.0,)
 										</versionRange>
 										<goals>
 											<goal>process</goal>
@@ -341,6 +396,15 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+		
+		<!-- DSL Needed Repository 
+		
+		<repository>
+			<id>com.mysema.maven.release</id>
+			<url>http://source.mysema.com/maven2/releases/</url>
+		</repository>
+		
+		-->
 		
 		
 	</repositories>
@@ -393,6 +457,7 @@
 							</systemProperties>
 						</configuration>
 					</plugin>
+					
 				</plugins>
 			</build>
 		</profile>
