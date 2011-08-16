@@ -9,45 +9,41 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.mysema.query.hql.HQLQuery;
-import com.mysema.query.hql.jpa.JPAQuery;
+import com.mysema.query.jpa.JPQLQuery;
+import com.mysema.query.jpa.impl.JPAQuery;
 import com.swat.mercedes.be.dao.spring.jpa.custom.CarRepositoryCustomInterface;
 import com.swat.mercedes.be.entities.Car;
 import com.swat.mercedes.be.entities.QCar;
 
-
 /**
- * Some more could be used 
+ * Some more could be used
  * 
- *
+ * 
  */
 
 public class CarRepositoryCustomImpl implements CarRepositoryCustomInterface {
 
     @PersistenceContext
     EntityManager entityManager;
-    
+
     @Override
     public List<Car> findCarsInServiceForMoreThenOneMonth() {
 	CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 	CriteriaQuery<Car> query = builder.createQuery(Car.class);
 	Root<Car> root = query.from(Car.class);
-	
-	//Predicate vinCode = builder.equal(root.get();
-	
-	
+
+	// Predicate vinCode = builder.equal(root.get();
+
 	return entityManager.createQuery("from Car car where....", Car.class).getResultList();
     }
 
     @Override
     public List<Car> findCarsWithMoreThen100kkm() {
-	
-	HQLQuery query = new JPAQuery(entityManager);
+
+	JPQLQuery query = new JPAQuery(entityManager);
 	QCar car = QCar.car;
-	ArrayList<Car> cars = (ArrayList<Car>)query.from(car).where(car.km.gt(100000)).list(car);
+	ArrayList<Car> cars = (ArrayList<Car>) query.from(car).where(car.km.gt(100000)).list(car);
 	return cars;
     }
-    
-    
 
 }

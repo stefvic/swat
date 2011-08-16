@@ -19,19 +19,21 @@ For developer purpose:
 					or
 				2) Use Help/Install New Software, Add : http://download.eclipse.org/egit/updates
 		
-		4) Configuration JPA model generation :
+		4) Configuration JPA and QueryDSL model generation :
 			- use this link 
 				http://docs.jboss.org/hibernate/stable/jpamodelgen/reference/en-US/html/chapter-usage.html#maven-dependency
 				(2.2.2 for eclispe IDE)
 				custom rules: 
 					generated source directory: target/generated-sources/apt (maven like)
 					add in jars in factory path: 
-						hibernate-jpamodelgen-1.1.1.Final.jar
-						hibernate-jpa-2.0-api-1.0.1.Final.jar
+						hibernate-jpamodelgen-1.1.1.Final.jar (JPA dependency)
+						hibernate-jpa-2.0-api-1.0.1.Final.jar (JPA dependency)
+						ext/querydsl/querydsl-jpa-2.2.1-apt-one-jar.jar (QueryDSL dependency)
 						
 		5) Instead of using Criteria API, we use (at least will try to use) Query DSL - which is the same type safe query builders, but made much easier with Query DSL.
 		   More about : http://blog.mysema.com/2010/07/querying-hibernate-with-querydsl.html
 		   				http://blog.springsource.com/2011/04/26/advanced-spring-data-jpa-specifications-and-querydsl/
+		   				http://source.mysema.com/static/querydsl/2.1.0/reference/html/ch02s02.html
 
 	Import project:
 		1) Clone project from github
